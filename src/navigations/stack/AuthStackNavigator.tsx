@@ -30,7 +30,6 @@ export const AuthStackNavigator = () => {
         name={authNavigation.AUTH_HOME}
         component={AuthHomeScreen}
         options={{
-          headerTitle: '',
           headerShown: false,
         }}
       />
@@ -38,7 +37,7 @@ export const AuthStackNavigator = () => {
         name={authNavigation.LOGIN}
         component={LoginScreen}
         options={{
-          headerTitle: '로그인',
+          headerShown: false,
         }}
       />
       <Stack.Screen

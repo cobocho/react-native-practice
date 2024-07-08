@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Button} from '../../components/Button/Button';
 
 export const MapHomeScreen = () => {
-  return <Text>Map Screen</Text>;
+  return <Button>Map Screen</Button>;
 };
