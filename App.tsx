@@ -2,14 +2,17 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {RootNavigator} from './src/navigations/root/RootNavigator';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 function App(): JSX.Element {
   return (
-    <NavigationContainer>
-      <SafeAreaView style={styles.container}>
-        <RootNavigator />
-      </SafeAreaView>
-    </NavigationContainer>
+    <QueryClientProvider client={new QueryClient()}>
+      <NavigationContainer>
+        <SafeAreaView style={styles.container}>
+          <RootNavigator />
+        </SafeAreaView>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 

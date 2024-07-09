@@ -44,7 +44,7 @@ export const AuthStackNavigator = () => {
         name={authNavigation.SIGN_UP}
         component={SignUpScreen}
         options={{
-          headerTitle: '회원가입',
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

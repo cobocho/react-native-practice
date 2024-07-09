@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {forwardRef, useRef} from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {colors} from '../../constants/colors';
 import {DEVICE_HEIGHT} from '../../constants/device';
+import {mergeRef} from '../../utils/mergeRef';
 
 interface InputProps extends TextInputProps {
   disabled?: boolean;
@@ -15,37 +16,33 @@ interface InputProps extends TextInputProps {
   touched?: boolean;
 }
 
-export const Input = ({
-  disabled = false,
-  error,
-  ...rest
-}: InputProps) => {
-  const innerRef = useRef<TextInput>(null);
+export const Input = forwardRef<TextInput, InputProps>(
+  ({disabled = false, error, ...rest}, ref) => {
+    const innerRef = useRef<TextInput>(null);
 
-  return (
-    <Pressable
-      onPress={() => innerRef.current?.focus()}
-      style={[
-        styles.container,
-        disabled && styles.disabled,
-        Boolean(error) && styles.errorInput,
-      ]}>
-      <TextInput
-        editable={!disabled}
-        placeholderTextColor={colors.gray_500}
-        style={[styles.input, disabled && styles.disabled]}
-        autoCapitalize="none"
-        spellCheck={false}
-        autoCorrect={false}
-        ref={innerRef}
-        {...rest}
-      />
-      {Boolean(error) && (
-        <Text style={styles.errorText}>{error}</Text>
-      )}
-    </Pressable>
-  );
-};
+    return (
+      <Pressable
+        onPress={() => innerRef.current?.focus()}
+        style={[
+          styles.container,
+          disabled && styles.disabled,
+          Boolean(error) && styles.errorInput,
+        ]}>
+        <TextInput
+          editable={!disabled}
+          placeholderTextColor={colors.gray_500}
+          style={[styles.input, disabled && styles.disabled]}
+          autoCapitalize="none"
+          spellCheck={false}
+          autoCorrect={false}
+          ref={ref ? mergeRef(innerRef, ref) : innerRef}
+          {...rest}
+        />
+        {Boolean(error) && <Text style={styles.errorText}>{error}</Text>}
+      </Pressable>
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   container: {
