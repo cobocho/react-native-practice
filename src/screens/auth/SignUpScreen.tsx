@@ -41,21 +41,25 @@ export const SignUpScreen = () => {
   const passwordConfirmRef = React.useRef<TextInput>(null);
 
   const handleSubmit = async () => {
-    console.log('signup success');
     await form.trigger();
 
-    if (form.formState.errors) {
+    const email = form.watch('email');
+    const password = form.watch('password');
+
+    if (form.formState.isValid) {
+      console.log('회원가입 요청');
       signupMutation.mutate(
         {
-          email: form.watch('email'),
-          password: form.watch('password'),
+          email,
+          password,
         },
         {
           onSuccess: () => {
-            console.log('signup success');
+            console.log('회원가입 성공');
+            console.log('로그인 요청');
             loginMutation.mutate({
-              email: form.watch('email'),
-              password: form.watch('password'),
+              email,
+              password,
             });
           },
         },
@@ -110,6 +114,7 @@ export const SignUpScreen = () => {
             );
           }}
         />
+        {signupMutation.isPending && <Text> '로딩 중...'</Text>}
         <Controller
           control={form.control}
           name="passwordConfirm"

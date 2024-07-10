@@ -14,16 +14,6 @@ interface SignupDto {
   password: string;
 }
 
-export const postSignup = async ({
-  email,
-  password,
-}: SignupDto): Promise<void> => {
-  await axiosInstance.post('/auth/signup', {
-    method: 'POST',
-    body: JSON.stringify({email, password}),
-  });
-};
-
 interface LoginDto {
   email: string;
   password: string;
@@ -34,13 +24,32 @@ interface LoginResponse {
   refreshToken: string;
 }
 
+export const postSignup = async ({
+  email,
+  password,
+}: SignupDto): Promise<void> => {
+  console.log('signup', {
+    email,
+    password,
+  });
+  const {data} = await axiosInstance.post('/auth/signup', {
+    email,
+    password,
+  });
+  return data;
+};
+
 export const postLogin = async ({
   email,
   password,
 }: LoginDto): Promise<LoginResponse> => {
-  const {data} = await axiosInstance.post<LoginResponse>('/auth/login', {
-    method: 'POST',
-    body: JSON.stringify({email, password}),
+  console.log('login', {
+    email,
+    password,
+  });
+  const {data} = await axiosInstance.post<LoginResponse>('/auth/signin', {
+    email,
+    password,
   });
 
   return data;
@@ -58,12 +67,16 @@ export const useLogin = (options?: UseMutationCustomOptions<LoginResponse>) => {
 
   return useMutation({
     mutationFn: postLogin,
-    onSuccess: async data => {
+    onSuccess: async (data, v, c) => {
+      console.log('로그인 성공');
       const {accessToken, refreshToken} = data;
-
       await setEncryptStorage('refreshToken', refreshToken);
 
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+
+      if (options?.onSuccess) {
+        options.onSuccess(data, v, c);
+      }
     },
     onSettled: () => {
       queryClient.invalidateQueries({
@@ -116,6 +129,7 @@ export const useGetRefreshToken = (
     refetchInterval: 1000 * 60 * 30 - 1000 * 60 * 3,
     refetchOnReconnect: true,
     refetchIntervalInBackground: true,
+    enabled: false,
     ...options,
   });
 
@@ -164,7 +178,7 @@ export const useAuth = () => {
   const refreshQuery = useGetRefreshToken();
   const loginMutation = useLogin();
   const getProfileQuery = useGetProfile({
-    enabled: refreshQuery.isSuccess,
+    enabled: loginMutation.isSuccess,
   });
   const logoutMutation = useLogout();
   const isLogin = getProfileQuery.isSuccess;
