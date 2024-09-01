@@ -6,6 +6,7 @@ import {
   TextInput,
   TextInputProps,
 } from 'react-native';
+
 import {colors} from '../../constants/colors';
 import {DEVICE_HEIGHT} from '../../constants/device';
 import {mergeRef} from '../../utils/mergeRef';

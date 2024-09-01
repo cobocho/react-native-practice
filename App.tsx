@@ -1,8 +1,9 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import {RootNavigator} from './src/navigations/root/RootNavigator';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+
+import {RootNavigator} from './src/navigations/root/RootNavigator';
 
 function App(): JSX.Element {
   return (

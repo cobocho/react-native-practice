@@ -1,11 +1,11 @@
-export const mergeRef = <T extends unknown>(...refs: React.Ref<T>[]) => {
+export const mergeRef = <T>(...refs: React.Ref<T>[]) => {
   return (node: T) => {
-    refs.forEach(ref => {
+    refs.forEach((ref) => {
       if (typeof ref === 'function') {
-        ref(node);
+        ref(node)
       } else if (ref && typeof ref === 'object') {
-        (ref as React.MutableRefObject<T | null>).current = node;
+        ;(ref as React.MutableRefObject<T | null>).current = node
       }
-    });
-  };
-};
+    })
+  }
+}

@@ -1,12 +1,12 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import {Input} from '../../components/Input/Input';
-import {Button} from '../../components/Button/Button';
 import {z} from 'zod';
-import {useForm} from 'react-hook-form';
+import {useForm,Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {Controller} from 'react-hook-form';
 import {TextInput} from 'react-native-gesture-handler';
+
+import {Button} from '../../components/Button/Button';
+import {Input} from '../../components/Input/Input';
 
 const loginScheme = z.object({
   email: z.string().email({

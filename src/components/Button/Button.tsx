@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
+
 import {colors} from '../../constants/colors';
 
 interface ButtonProps extends PressableProps {

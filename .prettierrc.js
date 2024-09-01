@@ -1,7 +1,11 @@
+/** @type {import('prettier'.Options)} */
 module.exports = {
-  arrowParens: 'avoid',
-  bracketSameLine: true,
-  bracketSpacing: false,
+  printWidth: 80,
+  tabWidth: 2,
+  useTabs: false,
+  semi: false,
   singleQuote: true,
   trailingComma: 'all',
+  arrowParens: 'always',
+  endOfLine: 'lf',
 };

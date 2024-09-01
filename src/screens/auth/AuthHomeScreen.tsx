@@ -1,22 +1,24 @@
-import {StackScreenProps} from '@react-navigation/stack';
-import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {AuthStackParamList} from '../../navigations/stack/AuthStackNavigator';
-import {authNavigation} from '../../constants/navigation';
-import {Button} from '../../components/Button/Button';
-import {dvw} from '../../utils/style';
+import { StackScreenProps } from '@react-navigation/stack'
+import React from 'react'
+import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-type AuthHomeScreenProps = StackScreenProps<AuthStackParamList>;
+import { AuthStackParamList } from '../../navigations/stack/AuthStackNavigator'
+import { authNavigation } from '../../constants/navigation'
+import { Button } from '../../components/Button/Button'
+import { dvw } from '../../utils/style'
+import logo from '../../assets/MATZIP.png'
 
-export const AuthHomeScreen = ({navigation}: AuthHomeScreenProps) => {
+type AuthHomeScreenProps = StackScreenProps<AuthStackParamList>
+
+export const AuthHomeScreen = ({ navigation }: AuthHomeScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require('../../assets/MATZIP.png')}
+          source={logo as ImageSourcePropType}
         />
       </View>
       <View style={styles.buttonContainer}>
@@ -25,13 +27,14 @@ export const AuthHomeScreen = ({navigation}: AuthHomeScreenProps) => {
         </Button>
         <Button
           variant="outlined"
-          onPress={() => navigation.navigate(authNavigation.SIGN_UP)}>
+          onPress={() => navigation.navigate(authNavigation.SIGN_UP)}
+        >
           회원가입 화면으로 이동
         </Button>
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -52,4 +55,4 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 10,
   },
-});
+})
