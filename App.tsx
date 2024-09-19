@@ -1,15 +1,18 @@
-import {NavigationContainer} from '@react-navigation/native';
-import './gesture-handler';
+import './gesture-handler'
+import { NavigationContainer } from '@react-navigation/native'
+import React from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-import React from 'react';
-import RootNavigator from './src/navigation/RootNavigator';
+import RootNavigator from './src/navigation/RootNavigator'
 
 function App(): React.JSX.Element {
   return (
     <NavigationContainer>
-      <RootNavigator />
+      <QueryClientProvider client={new QueryClient()}>
+        <RootNavigator />
+      </QueryClientProvider>
     </NavigationContainer>
-  );
+  )
 }
 
-export default App;
+export default App

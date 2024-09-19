@@ -1,5 +1,6 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
+
 import MapScreen from '../../screens/MapScreen';
 import CalendarHomeScreen from '../../screens/CalendarHomeScreen';
 import FeedHomeScreen from '../../screens/FeedHomeScreen';
@@ -17,7 +18,7 @@ export interface AuthStackParamList {
   [key: string]: undefined;
 }
 
-const MainDrawerNavigator = () => {
+function MainDrawerNavigator() {
   const Drawer = createDrawerNavigator();
 
   return (
@@ -30,6 +31,6 @@ const MainDrawerNavigator = () => {
       <Drawer.Screen name={MAIN_NAVIGATION.Feed} component={FeedHomeScreen} />
     </Drawer.Navigator>
   );
-};
+}
 
 export default MainDrawerNavigator;
