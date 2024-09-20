@@ -4,8 +4,8 @@ import { z } from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import Input from '../components/Input'
-import Button from '../components/Button'
+import Input from '@/components/Input'
+import Button from '@/components/Button'
 
 const loginScheme = z.object({
   email: z.string().email(),

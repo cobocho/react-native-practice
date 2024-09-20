@@ -1,25 +1,25 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import React from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import React from 'react'
 
-import MapScreen from '../../screens/MapScreen';
-import CalendarHomeScreen from '../../screens/CalendarHomeScreen';
-import FeedHomeScreen from '../../screens/FeedHomeScreen';
+import MapScreen from '@/screens/MapScreen'
+import CalendarHomeScreen from '@/screens/CalendarHomeScreen'
+import FeedHomeScreen from '@/screens/FeedHomeScreen'
 
 export const MAIN_NAVIGATION = {
   MAP: 'Map',
   Calender: 'Calender',
   Feed: 'Feed',
-} as const;
+} as const
 
 export interface AuthStackParamList {
-  [MAIN_NAVIGATION.MAP]: undefined;
-  [MAIN_NAVIGATION.Calender]: undefined;
-  [MAIN_NAVIGATION.Feed]: undefined;
-  [key: string]: undefined;
+  [MAIN_NAVIGATION.MAP]: undefined
+  [MAIN_NAVIGATION.Calender]: undefined
+  [MAIN_NAVIGATION.Feed]: undefined
+  [key: string]: undefined
 }
 
 function MainDrawerNavigator() {
-  const Drawer = createDrawerNavigator();
+  const Drawer = createDrawerNavigator()
 
   return (
     <Drawer.Navigator>
@@ -30,7 +30,7 @@ function MainDrawerNavigator() {
       />
       <Drawer.Screen name={MAIN_NAVIGATION.Feed} component={FeedHomeScreen} />
     </Drawer.Navigator>
-  );
+  )
 }
 
-export default MainDrawerNavigator;
+export default MainDrawerNavigator

@@ -5,9 +5,9 @@ import { Image, SafeAreaView, View } from 'react-native'
 import {
   AUTH_NAVIGATION,
   AuthStackParamList,
-} from '../navigation/stack/AuthStackNavigator'
-import Button from '../components/Button'
-import Logo from '../assets/matzip.png'
+} from '@/navigation/stack/AuthStackNavigator'
+import Button from '@/components/Button'
+import Logo from '@/assets/matzip.png'
 
 interface AuthHomeScreenProps extends StackScreenProps<AuthStackParamList> {}
 

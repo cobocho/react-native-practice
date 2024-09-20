@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useAuth } from '../services/auth/query'
+import { useAuth } from '@/services/auth/query'
 
 import AuthStackNavigator from './stack/AuthStackNavigator'
 import MainDrawerNavigator from './drawer/MainDrawerNavigator'

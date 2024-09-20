@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, TextInput, View } from 'react-native'
 
-import { cn } from '../utils/cn'
+import { cn } from '@/utils/cn'
 
 interface InputProps extends React.ComponentPropsWithoutRef<typeof TextInput> {
   errorMessage?: string

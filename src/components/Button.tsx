@@ -2,7 +2,7 @@ import { cva, VariantProps } from 'class-variance-authority'
 import React, { PropsWithChildren } from 'react'
 import { Pressable, Text } from 'react-native'
 
-import { cn } from '../utils/cn'
+import { cn } from '@/utils/cn'
 
 export const buttonVariants = cva('flex w-full items-center rounded-[5px]', {
   variants: {

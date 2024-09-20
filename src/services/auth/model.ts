@@ -1,4 +1,4 @@
-import { Category } from '../map/model'
+import { Category } from '@/map/model'
 
 export interface SignupDto {
   email: string

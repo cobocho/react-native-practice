@@ -1,9 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
-import AuthHomeScreen from '../../screens/AuthHomeScreen'
-import LoginScreen from '../../screens/LoginScreen'
-import SignupScreen from '../../screens/SignupScreen'
+import AuthHomeScreen from '@/screens/AuthHomeScreen'
+import LoginScreen from '@/screens/LoginScreen'
+import SignupScreen from '@/screens/SignupScreen'
 
 export const AUTH_NAVIGATION = {
   AUTH_HOME: 'AuthHome',

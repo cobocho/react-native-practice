@@ -4,9 +4,9 @@ import { z } from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import Input from '../components/Input'
-import Button from '../components/Button'
-import { useAuth } from '../services/auth/query'
+import Input from '@/components/Input'
+import Button from '@/components/Button'
+import { useAuth } from '@/services/auth/query'
 
 const signupScheme = z
   .object({

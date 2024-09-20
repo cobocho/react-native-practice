@@ -1,12 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
-import {
-  UseMutationCustomOptions,
-  UseQueryCustomOptions,
-} from '../../types/query'
-import { removeStorage, setStorage } from '../../utils/storage'
-import { removeHeader, setHeader } from '../../utils/axios'
+import { UseMutationCustomOptions, UseQueryCustomOptions } from '@/types/query'
+import { removeStorage, setStorage } from '@/utils/storage'
+import { removeHeader, setHeader } from '@/utils/axios'
 
 import { authService } from './service'
 import { TokenResponse } from './model'

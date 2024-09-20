@@ -1,5 +1,5 @@
-import { axiosInstance, removeHeader } from '../../utils/axios'
-import { getStorage } from '../../utils/storage'
+import { axiosInstance, removeHeader } from '@/utils/axios'
+import { getStorage } from '@/utils/storage'
 
 import {
   LoginDto,
