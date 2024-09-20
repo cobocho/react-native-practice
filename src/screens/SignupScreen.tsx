@@ -92,6 +92,7 @@ function SignupScreen() {
             onChangeText={field.onChange}
             value={field.value}
             blurOnSubmit={false}
+            textContentType="oneTimeCode"
             onSubmitEditing={() => pwConfirmRef.current?.focus()}
             returnKeyType="next"
             errorMessage={signupForm.formState.errors.password?.message}
@@ -107,6 +108,7 @@ function SignupScreen() {
             placeholder="비밀번호 확인"
             secureTextEntry
             autoCapitalize="none"
+            textContentType="oneTimeCode"
             onBlur={() => signupForm.trigger('passwordConfirm')}
             onChangeText={field.onChange}
             value={field.value}
