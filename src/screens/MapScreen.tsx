@@ -1,12 +1,79 @@
-import React from 'react'
-import { Dimensions, SafeAreaView, StyleSheet } from 'react-native'
+import { DrawerNavigationProp } from '@react-navigation/drawer'
+import { useNavigation } from '@react-navigation/native'
+import { useRef } from 'react'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+import { DrawerParamList } from '@/navigation/drawer/MainDrawerNavigator'
+import { useUserLocation } from '@/hooks/useUserLocation'
+import { usePermission } from '@/hooks/usePermission'
 
 function MapScreen() {
+  const inset = useSafeAreaInsets()
+  const navigation = useNavigation<DrawerNavigationProp<DrawerParamList>>()
+
+  const { userLocation, isUserLocationError } = useUserLocation()
+
+  const mapRef = useRef<MapView>(null)
+
+  usePermission('PHOTO')
+
+  const onClickUserLocation = () => {
+    if (!mapRef.current) {
+      return
+    }
+
+    mapRef.current.animateToRegion({
+      latitude: userLocation.latitude,
+      longitude: userLocation.longitude,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    })
+  }
+
   return (
-    <SafeAreaView style={styles.container}>
-      <MapView provider={PROVIDER_GOOGLE} style={styles.map} />
-    </SafeAreaView>
+    <>
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        style={styles.map}
+        showsUserLocation
+        followsUserLocation
+        ref={mapRef}
+      />
+      <Pressable
+        style={[
+          styles.drawerButton,
+          {
+            top: inset.top + 20,
+          },
+        ]}
+        onPress={() => navigation.openDrawer()}
+        className="bg-primary"
+      >
+        <Text>서랍</Text>
+      </Pressable>
+      <View style={styles.buttonList}>
+        <Pressable style={[styles.buttonItem]} className="bg-pink-700">
+          <Text>내위치</Text>
+        </Pressable>
+        <Pressable style={[styles.buttonItem]} className="bg-pink-700">
+          <Text>내위치</Text>
+        </Pressable>
+        <Pressable style={[styles.buttonItem]} className="bg-pink-700">
+          <Text>내위치</Text>
+        </Pressable>
+        {!isUserLocationError && (
+          <Pressable
+            style={[styles.buttonItem]}
+            onPress={onClickUserLocation}
+            className="bg-pink-700"
+          >
+            <Text>내위치</Text>
+          </Pressable>
+        )}
+      </View>
+    </>
   )
 }
 
@@ -15,8 +82,33 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   map: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    flex: 1,
+  },
+  drawerButton: {
+    alignItems: 'flex-end',
+    position: 'absolute',
+    left: -30,
+    width: 75,
+    padding: 10,
+    paddingVertical: 20,
+    borderRadius: 50,
+    shadowColor: 'black',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.5,
+    elevation: 4,
+  },
+  buttonList: {
+    position: 'absolute',
+    gap: 12,
+    bottom: 30,
+    right: 15,
+  },
+  buttonItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 45,
+    width: 45,
+    height: 45,
   },
 })
 
