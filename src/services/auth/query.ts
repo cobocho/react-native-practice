@@ -6,7 +6,7 @@ import { removeStorage, setStorage } from '@/utils/storage'
 import { removeHeader, setHeader } from '@/utils/axios'
 
 import { authService } from './service'
-import { TokenResponse } from './model'
+import { ProfileResponse, TokenResponse } from './model'
 
 export const authOptions = {
   signup: () => ({ mutationFn: authService.signup }),
@@ -83,8 +83,10 @@ export const useRefreshQuery = (
   return refreshQuery
 }
 
-export const useProfileQuery = (options?: UseQueryCustomOptions) => {
-  return useQuery({
+export const useProfileQuery = (
+  options?: UseQueryCustomOptions<ProfileResponse>,
+) => {
+  return useQuery<ProfileResponse>({
     ...authOptions.profile(),
     ...options,
   })

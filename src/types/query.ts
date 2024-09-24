@@ -13,6 +13,6 @@ export type UseMutationCustomOptions<TD = unknown> = Omit<
 >
 
 export type UseQueryCustomOptions<TD = unknown> = Omit<
-  UseQueryOptions<TD, unknown, TD>,
+  UseQueryOptions<TD, Error, TD>,
   'queryFn' | 'queryKey'
 >

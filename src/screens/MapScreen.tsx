@@ -3,6 +3,8 @@ import { useNavigation } from '@react-navigation/native'
 import { useRef } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { DrawerParamList } from '@/navigation/drawer/MainDrawerNavigator'
@@ -17,7 +19,7 @@ function MapScreen() {
 
   const mapRef = useRef<MapView>(null)
 
-  usePermission('PHOTO')
+  usePermission('LOCATION')
 
   const onClickUserLocation = () => {
     if (!mapRef.current) {
@@ -51,7 +53,7 @@ function MapScreen() {
         onPress={() => navigation.openDrawer()}
         className="bg-primary"
       >
-        <Text>서랍</Text>
+        <Ionicons name="menu" size={24} color="white" />
       </Pressable>
       <View style={styles.buttonList}>
         <Pressable style={[styles.buttonItem]} className="bg-pink-700">
@@ -69,7 +71,7 @@ function MapScreen() {
             onPress={onClickUserLocation}
             className="bg-pink-700"
           >
-            <Text>내위치</Text>
+            <MaterialIcons name="my-location" size={24} color="white" />
           </Pressable>
         )}
       </View>
@@ -89,8 +91,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: -30,
     width: 75,
-    padding: 10,
-    paddingVertical: 20,
+    paddingVertical: 10,
+    paddingRight: 14,
     borderRadius: 50,
     shadowColor: 'black',
     shadowOffset: { width: 1, height: 1 },

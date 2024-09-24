@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import Input from '@/components/Input'
 import Button from '@/components/Button'
+import { useAuth } from '@/services/auth/query'
 
 const loginScheme = z.object({
   email: z.string().email(),
@@ -22,8 +23,14 @@ function LoginScreen() {
     },
   })
 
+  const { loginMutation } = useAuth()
+
   const onSubmit = async () => {
     await loginForm.trigger()
+
+    if (loginForm.formState.isValid) {
+      loginMutation.mutate(loginForm.getValues())
+    }
   }
 
   return (

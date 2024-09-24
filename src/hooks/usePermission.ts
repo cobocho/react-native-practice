@@ -35,11 +35,9 @@ export const usePermission = (permission: Permission) => {
   useEffect(() => {
     ;(async () => {
       const isAndroid = Platform.OS === 'android'
-      const permissionOS = isAndroid
-        ? androidPermissions[permission]
-        : iosPermissions[permission]
+      const permissionOS = isAndroid ? androidPermissions : iosPermissions
 
-      const checked = await check(permissionOS)
+      const checked = await check(permissionOS[permission])
 
       const showPermissionAlert = () => {
         Alert.alert(alerts[permission].title, alerts[permission].message, [
@@ -61,7 +59,7 @@ export const usePermission = (permission: Permission) => {
             showPermissionAlert()
             return
           }
-          await request(permissionOS)
+          await request(permissionOS[permission])
           break
         case RESULTS.BLOCKED:
         case RESULTS.LIMITED:

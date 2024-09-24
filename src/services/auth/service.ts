@@ -33,8 +33,6 @@ export const authService = {
   refresh: async () => {
     const refreshToken = await getStorage('refreshToken')
 
-    console.log('/auth/refresh')
-
     const { data } = await axiosInstance.get<TokenResponse>('/auth/refresh', {
       headers: {
         Authorization: `Bearer ${refreshToken}`,
