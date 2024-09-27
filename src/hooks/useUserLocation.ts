@@ -8,8 +8,8 @@ export const useUserLocation = () => {
     latitude: number
     longitude: number
   }>({
-    latitude: 0,
-    longitude: 0,
+    longitude: 127.10659665561894,
+    latitude: 37.506825463525566,
   })
   const [isUserLocationError, setIsUserLocationError] = useState(false)
   const { isComeback } = useAppState()

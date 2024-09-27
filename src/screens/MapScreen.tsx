@@ -1,8 +1,12 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
-import { useRef } from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
+import { useRef, useState } from 'react'
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
+import MapView, {
+  Marker,
+  PROVIDER_GOOGLE,
+  LongPressEvent,
+} from 'react-native-maps'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -10,6 +14,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { DrawerParamList } from '@/navigation/drawer/MainDrawerNavigator'
 import { useUserLocation } from '@/hooks/useUserLocation'
 import { usePermission } from '@/hooks/usePermission'
+import CustomMarker from '@/components/CustomMarker'
 
 function MapScreen() {
   const inset = useSafeAreaInsets()
@@ -18,6 +23,10 @@ function MapScreen() {
   const { userLocation, isUserLocationError } = useUserLocation()
 
   const mapRef = useRef<MapView>(null)
+  const [selectedLocation, setSelectedLocation] = useState<{
+    latitude: number
+    longitude: number
+  } | null>(null)
 
   usePermission('LOCATION')
 
@@ -34,6 +43,19 @@ function MapScreen() {
     })
   }
 
+  const handleLongPress = ({ nativeEvent }: LongPressEvent) => {
+    setSelectedLocation(nativeEvent.coordinate)
+  }
+
+  const handlePressAddPost = () => {
+    if (!selectedLocation) {
+      Alert.alert(
+        '추가할 위치를 선택해주세요.',
+        '지도를 길게 누르면 위치를 선택할 수 있습니다.',
+      )
+    }
+  }
+
   return (
     <>
       <MapView
@@ -42,7 +64,18 @@ function MapScreen() {
         showsUserLocation
         followsUserLocation
         ref={mapRef}
-      />
+        onLongPress={handleLongPress}
+      >
+        <Marker
+          coordinate={{
+            longitude: 127.10659665561894,
+            latitude: 37.506825463525566,
+          }}
+        />
+        {selectedLocation && (
+          <CustomMarker score={3} coordinate={selectedLocation} color="BLUE" />
+        )}
+      </MapView>
       <Pressable
         style={[
           styles.drawerButton,
@@ -56,19 +89,17 @@ function MapScreen() {
         <Ionicons name="menu" size={24} color="white" />
       </Pressable>
       <View style={styles.buttonList}>
-        <Pressable style={[styles.buttonItem]} className="bg-pink-700">
-          <Text>내위치</Text>
-        </Pressable>
-        <Pressable style={[styles.buttonItem]} className="bg-pink-700">
-          <Text>내위치</Text>
-        </Pressable>
-        <Pressable style={[styles.buttonItem]} className="bg-pink-700">
-          <Text>내위치</Text>
+        <Pressable
+          style={[styles.buttonItem]}
+          onPress={handlePressAddPost}
+          className="bg-pink-700"
+        >
+          <MaterialIcons name="add" size={24} color="white" />
         </Pressable>
         {!isUserLocationError && (
           <Pressable
-            style={[styles.buttonItem]}
             onPress={onClickUserLocation}
+            style={[styles.buttonItem]}
             className="bg-pink-700"
           >
             <MaterialIcons name="my-location" size={24} color="white" />

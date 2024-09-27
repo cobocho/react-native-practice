@@ -4,7 +4,14 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer'
 import React from 'react'
-import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 
 import { useAuth } from '@/services/auth/query'
 
@@ -16,6 +23,8 @@ export const CustomDrawer = (props: CustomDrawerProps) => {
 
   const blankImage =
     profile?.imageUri === null && profile?.kakaoImageUri === null
+
+  const handleLogout = () => {}
 
   return (
     <SafeAreaView style={styles.container}>
@@ -47,7 +56,18 @@ export const CustomDrawer = (props: CustomDrawerProps) => {
           </View>
           <Text>{profile?.email || ''}</Text>
         </View>
-        <DrawerItemList {...props} />
+        <View style={styles.menuContainer}>
+          <DrawerItemList {...props} />
+        </View>
+        <Pressable
+          onPress={handleLogout}
+          style={{
+            alignItems: 'flex-end',
+            padding: 10,
+          }}
+        >
+          <Text>로그아웃</Text>
+        </Pressable>
       </DrawerContentScrollView>
     </SafeAreaView>
   )
@@ -58,7 +78,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    backgroundColor: 'white',
+    flex: 1,
+    height: '100%',
+  },
+  menuContainer: {
+    flex: 1,
   },
   userInfoContainer: {
     alignItems: 'center',
