@@ -26,14 +26,30 @@ export const authOptions = {
   }),
 }
 
-export const useSignupMutation = (options?: UseMutationCustomOptions) => {
+export const useSignupMutation = (options: UseMutationCustomOptions = {}) => {
   return useMutation({
     ...authOptions.signup(),
     ...options,
   })
 }
 
-export const useLoginMutation = (options?: UseMutationCustomOptions) => {
+export const useLogoutMutation = (options: UseMutationCustomOptions = {}) => {
+  const client = useQueryClient()
+
+  return useMutation({
+    mutationFn: authService.logout,
+    onSuccess: () => {
+      removeHeader('Authorization')
+      removeStorage('refreshToken')
+      client.resetQueries({
+        queryKey: ['auth'],
+      })
+    },
+    ...options,
+  })
+}
+
+export const useLoginMutation = (options: UseMutationCustomOptions = {}) => {
   const client = useQueryClient()
 
   return useMutation({
@@ -100,10 +116,12 @@ export const useAuth = () => {
     enabled: refreshQuery.isSuccess,
   })
   const isLogin = getProfileQuery.isSuccess
+  const logoutMutation = useLogoutMutation()
 
   return {
     signupMutation,
     loginMutation,
+    logoutMutation,
     refreshQuery,
     getProfileQuery,
     isLogin,

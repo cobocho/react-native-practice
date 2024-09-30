@@ -18,13 +18,15 @@ import { useAuth } from '@/services/auth/query'
 interface CustomDrawerProps extends DrawerContentComponentProps {}
 
 export const CustomDrawer = (props: CustomDrawerProps) => {
-  const { getProfileQuery } = useAuth()
+  const { getProfileQuery, logoutMutation } = useAuth()
   const profile = getProfileQuery.data
 
-  const blankImage =
+  const isBlankImage =
     profile?.imageUri === null && profile?.kakaoImageUri === null
 
-  const handleLogout = () => {}
+  const handleLogout = () => {
+    logoutMutation.mutate({})
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,7 +37,7 @@ export const CustomDrawer = (props: CustomDrawerProps) => {
       >
         <View style={styles.userInfoContainer}>
           <View style={styles.userImageContainer}>
-            {blankImage && (
+            {isBlankImage && (
               <Image
                 source={require('../../assets/user-default.png')}
                 style={styles.userImage}

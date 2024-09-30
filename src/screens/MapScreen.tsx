@@ -1,7 +1,7 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { useRef, useState } from 'react'
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Alert, Pressable, StyleSheet, View } from 'react-native'
 import MapView, {
   Marker,
   PROVIDER_GOOGLE,
@@ -56,6 +56,8 @@ function MapScreen() {
     }
   }
 
+  console.log(userLocation)
+
   return (
     <>
       <MapView
@@ -63,6 +65,7 @@ function MapScreen() {
         style={styles.map}
         showsUserLocation
         followsUserLocation
+        showsMyLocationButton={false}
         ref={mapRef}
         onLongPress={handleLongPress}
       >
